@@ -1,0 +1,169 @@
+@import url("assets/fonts/fonts.css");
+@import url("assets/styling.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+html {
+    height: 500px;
+    position: relative;
+    width: 400px;
+}
+
+/* --------------- HEADER --------------- */
+
+@keyframes warning {
+    0%   {  color: rgb(255, 120, 120);  }
+    50%  {  color: rgb(255, 255, 255);  }
+    100% {  color: rgb(255, 120, 120);  }
+}
+
+@keyframes success {
+    0%   {  color: rgb( 72, 255,   0);  }
+    50%  {  color: rgb(255, 255, 255);  }
+    100% {  color: rgb( 72, 255,   0);  }
+}
+
+#header {
+    background: rgb(20, 20, 20);
+    display: inline-block;
+    height: 50px;
+    position: relative;
+    width: 100%;
+}
+
+#err_warn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: rgb(255, 0, 0);
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-left: 0.8rem;
+    margin-bottom: 0.92rem;
+    /* animation: success 1.2s linear infinite; */
+}
+
+#website {
+    position: absolute;
+    right: 0;
+}
+
+#website, #website > img {
+    height: 50px;
+    width: auto;
+}
+
+#profile, #profile > img {
+    height: 50px;
+    width: auto;
+
+}
+
+#web_info {
+    background: rgb(243, 243, 243);
+    height: 100px;
+    position: relative;
+    width: 100%;
+}
+
+#web_title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    padding-top: 17px;
+    width: 99999rem;
+    text-transform: uppercase;
+}
+
+#web_url {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1rem;
+    width: 999999px;
+    text-decoration: underline;
+}
+
+#web_info > span {
+    display: block;
+    padding-left: 35px;
+}
+
+#comment > textarea {
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+    overflow-y: auto;
+    width: 99%;
+    margin: 0 1px;
+    height: auto;
+    resize: none;
+}
+
+#grade {
+    margin: 15px 0 0 7px;
+    position: absolute;
+    float: bottom;
+}
+
+#grade > img {
+    display: inline;
+    height: 30px;
+    width: auto;
+}
+
+#my_range {
+    position: absolute;
+    left: 0;
+    margin: 7px 0 0 7px;
+    opacity: 1;
+    width: 145px;
+}
+
+#camera {
+    position: relative;
+    float: right;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    filter: invert(60%);
+}
+
+#send {
+    float: right;
+}
+
+/* --------------- BODY --------------- */
+
+/* -------------- LOGIN --------------- */
+
+.f_text {
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: underline;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#form {
+    width: 100%;
+    margin-top: 5%;
+    display: grid;
+    place-items: center;
+}
+
+.f_confirm {
+    margin-bottom: 10px;
+    padding: 4px;
+}
+
+.f_username, .f_password, #f_cpassword {
+    margin-bottom: 10px;
+}

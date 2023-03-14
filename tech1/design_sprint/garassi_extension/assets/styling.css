@@ -1,0 +1,95 @@
+@import url("fonts/fonts.css");
+
+/* SELECT MENU LIST */
+/* https://doodlenerd.com/html-control/css-dropdown-generator */
+.select {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.select select {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 8px 15px;
+    outline: 0;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    background: #e6e6e6;
+    color: #7b7b7b;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select select::-ms-expand {
+    display: none;
+}
+
+.select select:hover, .select select:focus {
+    color: #000000;
+    background: #ddd;
+}
+
+.select select:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.select_arrow {
+    position: absolute;
+    top: 6.5px;
+    right: 16px;
+    width: 5px;
+    height: 5px;
+    border: solid #7b7b7b;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.select select:hover ~ .select_arrow, .select select:focus ~ .select_arrow {
+    border-color: #000000;
+}
+
+.select select:disabled ~ .select_arrow {
+    border-top-color: #cccccc;
+}
+
+/* BUTTONS */
+/* https://www.bestcssbuttongenerator.com/#/23 */
+.my_button {
+    background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+    background-color: #ffffff;
+    border: 2px solid #dcdcdc;
+    display: inline;
+    cursor: pointer;
+    color: #666666;
+    font-family: 'Arial', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+.my_button:hover {
+    background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+    background-color: #f6f6f6;
+}
+
+.my_button:active {
+    position: relative;
+    top: 1px;
+}
+
+/* INPUT */
+.my_input {
+    padding: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+}

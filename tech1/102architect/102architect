@@ -1,0 +1,192 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## 102architect
+## File description:
+## main file of the 102architect project
+##
+
+from math import cos, sin, tan, pi
+from sys import argv
+
+def is_num(n):
+    for k in range(len(argv[n])):
+        if (not ((argv[n][k] >= '0' and argv[n][k] <= '9') or argv[n][k] == '-')):
+            print("Error: not a number")
+            exit(84)
+        k += 1
+    return
+
+def is_flag(n):
+    for k in range(len(argv[n])):
+        if (not (argv[n][0] == '-' and (argv[n][1] == 't' or argv[n][1] == 'z' or argv[n][1] == 'r' or argv[n][1] == 's'))):
+            print("Error: bad arguments")
+            exit(84)
+        k += 1
+    return
+
+def checker(str):
+    i = 0
+    if (str[0] == '-'):
+        if (str[1] == 't' or str[1] == 's' or str[1] == 'z' or str[1] == 'r'):
+            if (len(str) == 2):
+                return 1
+            else:
+                print("Error: bad arguments")
+                exit(84)
+        i = 1
+        while(len(str) != i):
+            if (str[i] >= '0' and str[i] <= '9'):
+                i += 1
+            else:
+                break
+        if (len(str) == i):
+            return 2
+        else:
+            print("Error: bad arguments")
+            exit(84)
+
+def error_handling(n, m):
+    j = 1
+
+    if (n == None and m == None):
+        while (j < len(argv)):
+            if (argv[j][0] == '-'):
+                checker(argv[j])
+            if (argv[j][0] == '-' and (argv[j][1] == 't' or argv[j][1] == 'z')):
+                if ((j + 1 >= len(argv)) or (j + 2 >= len(argv))):
+                    print("Error: not enough arguments")
+                    exit(84)
+                is_num(j + 1)
+                is_num(j + 2)
+                if (j + 3 < len(argv)):
+                    is_flag(j + 3)
+            if (argv[j][0] == '-' and (argv[j][1] == 'r' or argv[j][1] == 's')):
+                if ((j + 1 >= len(argv))):
+                    print("Error: not enough arguments")
+                    exit(84)
+                is_num(j + 1)
+                if (j + 2 < len(argv)):
+                    is_flag(j + 2)
+            j += 1
+        if (len(argv) < 5):
+            print("Error: not enough arguments")
+            exit(84)
+        j = 1
+        while (j < 3):
+            for k in range(len(argv[j])):
+                if (not ((argv[j][k] >= '0' and argv[j][k] <= '9') or argv[j][k] == '-')):
+                    print("Error: bad arguments")
+                    exit(84)
+                k += 1
+            j += 1
+    else:
+        while (n != None):
+            for k in range(len(argv[n])):
+                if (not ((argv[n][k] >= '0' and argv[n][k] <= '9') or argv[n][k] == '-')):
+                    print("Error: bad arguments")
+                    exit(84)
+                k += 1
+            if (m != None):
+                n = m
+                m = None
+            else:
+                break
+    return
+
+def show_matrix(matrix):
+    for i in range(len(matrix)):
+        string = ''
+        for j in range(len(matrix[i])):
+            string += ("%-*.2f" % (8, matrix[i][j]))
+        print(string.rstrip())
+    return
+
+def mult_matrix(m_one, m_two):
+    matrix = [[0.00, 0.00, 0.00], [0.00, 0.00, 0.00], [0.00, 0.00, 0.00]]
+    matrix[0][0] = (m_one[0][0] * m_two[0][0] + m_one[0][1] * m_two[1][0] + m_one[0][2] * m_two[2][0])
+    matrix[0][1] = (m_one[0][0] * m_two[0][1] + m_one[0][1] * m_two[1][1] + m_one[0][2] * m_two[2][1])
+    matrix[0][2] = (m_one[0][0] * m_two[0][2] + m_one[0][1] * m_two[1][2] + m_one[0][2] * m_two[2][2])
+
+    matrix[1][0] = (m_one[1][0] * m_two[0][0] + m_one[1][1] * m_two[1][0] + m_one[1][2] * m_two[2][0])
+    matrix[1][1] = (m_one[1][0] * m_two[0][1] + m_one[1][1] * m_two[1][1] + m_one[1][2] * m_two[2][1])
+    matrix[1][2] = (m_one[1][0] * m_two[0][2] + m_one[1][1] * m_two[1][2] + m_one[1][2] * m_two[2][2])
+
+    matrix[2][0] = (m_one[2][0] * m_two[0][0] + m_one[2][1] * m_two[1][0] + m_one[2][2] * m_two[2][0])
+    matrix[2][1] = (m_one[2][0] * m_two[0][1] + m_one[2][1] * m_two[1][1] + m_one[2][2] * m_two[2][1])
+    matrix[2][2] = (m_one[2][0] * m_two[0][2] + m_one[2][1] * m_two[1][2] + m_one[2][2] * m_two[2][2])
+    return matrix
+
+def mult_matrix_res(m_one, m_two):
+    matrix = [[0.0], [0.0], [0.0]]
+    matrix[0][0] = (m_one[0][0] * m_two[0][0] + m_one[0][1] * m_two[1][0] + m_one[0][2])
+    matrix[1][0] = (m_one[1][0] * m_two[0][0] + m_one[1][1] * m_two[1][0] + m_one[1][2])
+    matrix[2][0] = [0.0]
+    return matrix
+
+def translation(v, res):
+    tra = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+
+    tra[0][2] += float(v[0])
+    tra[1][2] += float(v[1])
+    return mult_matrix(tra, res)
+
+def scaling(c, res):
+    sca = [[1.0 * c[0], 0.0, 0.0], [0.0, 1.0 * c[1], 0.0], [0.0, 0.0, 1.0]]
+    return mult_matrix(sca, res)
+
+def rotation(t, res):
+    rot = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+
+    t *= pi / 180
+    rot = [[cos(t), -sin(t), 0], [sin(t), cos(t), 0], [0, 0, 1]]
+    return mult_matrix(rot, res)
+
+def reflexion(t, res):
+    ref = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+
+    t *= pi / 180
+    ref = [[round(cos(2 * t), 2), round(sin(2 * t), 2), 0], [round(sin(2 * t), 2), round(-cos(2 * t), 2), 0], [0, 0, 1]]
+    return mult_matrix(ref, res)
+
+def main():
+    error_handling(None, None)
+    res = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+    i = 1
+    j = 1
+
+    while (j < len(argv)):
+        if (argv[j][0] == '-' or (argv[j][0] >= '0' and argv[j][0] <= '9')):
+            j += 1
+        else:
+            print("Error: bad arguments")
+            exit(84)
+    while (i <= len(argv) - 1):
+        if (argv[i][0] == '-' and argv[i][1] == 't'):
+            error_handling(i + 1, i + 2)
+            print("Translation along vector (%d, %d)" % (int(argv[i + 1]), int(argv[i + 2])))
+            res = translation([argv[i + 1], argv[i + 2]], res)
+            i += 2
+        if (argv[i][0] == '-' and argv[i][1] == 'z'):
+            error_handling(i + 1, i + 2)
+            print("Scaling by factors %d and %d" % (int(argv[i + 1]), int(argv[i + 2])))
+            res = scaling([float(argv[i + 1]), float(argv[i + 2])], res)
+            i += 2
+        if (argv[i][0] == '-' and argv[i][1] == 'r'):
+            error_handling(i + 1, None)
+            print("Rotation by a %d degree angle" % (int(argv[i + 1])))
+            res = rotation(float(argv[i + 1]), res)
+            i += 1
+        if (argv[i][0] == '-' and argv[i][1] == 's'):
+            error_handling(i + 1, None)
+            print("Reflection over an axis with an inclination angle of %d degrees" % (int(argv[i + 1])))
+            res = reflexion(float(argv[i + 1]), res)
+        i += 1
+    show_matrix(res)
+    vect = [[float(argv[1])], [float(argv[2])], [0.0]]
+    vect = mult_matrix_res(res, vect)
+    print("(%.2f, %.2f) => (%.2f, %.2f)" % (float(argv[1]), float(argv[2]), float(vect[0][0]), float(vect[1][0])))
+    return 0
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,64 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:6.2
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - poll-tier
+      - back-tier
+
+  db:
+    image: postgres:12.6
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - result-tier
+      - back-tier
+
+  poll:
+    build: ./poll/
+    restart: always
+    ports:
+      - "5000:80"
+    networks:
+      - poll-tier
+    environment:
+      - PORT=80
+    depends_on:
+      - "redis"
+
+  worker:
+    build: ./worker/
+    restart: always
+    networks:
+      - back-tier
+    environment:
+      - PORT=80
+    depends_on:
+      - "db"
+      - "redis"
+
+  result:
+    build: ./result/
+    restart: always
+    ports:
+      - "5001:80"
+    networks:
+      - result-tier
+    environment:
+      - PORT=80
+    depends_on:
+      - "db"
+
+volumes:
+  db-data:
+
+networks:
+  poll-tier:
+  result-tier:
+  back-tier:

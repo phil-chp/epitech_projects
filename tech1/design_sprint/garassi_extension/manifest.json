@@ -1,0 +1,24 @@
+{
+    "name": "Garassi",
+    "description": "An online platform for discussion open to everyone!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+      "service_worker": "main.js"
+    },
+    "permissions": [
+      "webNavigation",
+      "tabs",
+      "http://*/*",
+      "https://*/*"
+    ],
+    "icons": {
+      "16": "assets/icon/garassi16.png",
+      "32": "assets/icon/garassi32.png",
+      "128": "assets/icon/garassi128.png"
+    },
+    "browser_action": {
+      "default_icon": "assets/icon/garassi32.png",
+      "default_popup": "login.html"
+    }
+  }

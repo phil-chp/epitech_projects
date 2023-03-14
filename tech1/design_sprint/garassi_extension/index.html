@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="scripts.js"></script>
+    <title>Garassi</title>
+</head>
+<body>
+    <div id="header">
+        <a href="https://ghizzo.fr/" target="_blank" id="profile"><img src="assets/textures/icon_profile.png" alt="Profile"></a>
+        <span id="err_warn"></span>
+        <a href="https://ghizzo.fr/" target="_blank" id="website"><img src="assets/icon/garassi128.png" alt="Garassi"></a>
+    </div>
+    <div id="web_info">
+        <span id="web_title">example.com</span>
+        <span id="web_url">example.com/lorem/ipsum/</span>
+    </div>
+    <div class="select">
+        <select name="list">
+            <option value="username">[USERNAME]</option>
+            <option value="community">Community [WIP]</option>
+        </select>
+        <div class="select_arrow"></div>
+    </div>
+    <div id="comment">
+        <textarea id="text" placeholder="Write your comment here..." name="comment" rows="15"></textarea>
+    </div>
+    <div id="grade">
+        <img class="clickable" id="star1" src="assets/textures/star_empty.png" alt="O">
+        <img class="clickable" id="star2" src="assets/textures/star_empty.png" alt="O">
+        <img class="clickable" id="star3" src="assets/textures/star_empty.png" alt="O">
+        <img class="clickable" id="star4" src="assets/textures/star_empty.png" alt="O">
+        <img class="clickable" id="star5" src="assets/textures/star_empty.png" alt="O">
+    </div>
+    <button class="my_button" id="send">Send</button>
+    <img class="clickable" id="camera" src="assets/textures/camera.png" alt="Camera">
+</body>
+</html>

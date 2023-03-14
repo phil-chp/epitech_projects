@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+from sys import argv, stderr
+from functions import get_functions, prints
+from math import pi, sin
+
+
+def error_handling(n):
+    """Handles errors and mentions the usage and description of the project"""
+    print("USAGE")
+    print("\t./110borwein n")
+    print("\nDESCRIPTION")
+    print("\tn constant defining the integral to be computed")
+    exit(n)
+
+
+def borwein(n):
+    """The main borwein function, computes all logic and prints"""
+    functions = get_functions()
+
+    for i in range(3):
+        _in  = functions[i](n, 0, 5000)
+        diff = abs(_in - (pi / 2))
+        rule = prints(i)
+        print(f"{rule}\nI{n} = {_in:.10f}\ndiff = {diff:.10f}")
+        print("%s" % ("\n" if i != 2 else ""), end='')
+    return 0
+
+
+def main():
+    """The main entry of the project, handles error cases and gets user value"""
+    if (len(argv) == 2 and argv[1] == "-h"):
+        error_handling(0)
+    if len(argv) != 2:
+        error_handling(84)
+    try:
+        n = int(argv[1])
+        if (n < 0):
+            error_handling(84)
+    except ValueError:
+        print("110borwein: enter a valid number\nHELP: ./110borwein -h", file=stderr)
+        exit(84)
+    borwein(n)
+    return 0
+
+if __name__ == '__main__':
+    main()

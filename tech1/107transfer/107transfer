@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+from sys import argv, exit, stderr
+
+def usage():
+    print("USAGE")
+    print("\t./107transfer [num den]*")
+    print("DESCRIPTION")
+    print("\tnum\tpolynomial numerator defined by its coefficients")
+    print("\tden\tpolynomial denominator defined by its coefficients")
+    exit(0)
+
+def calc(arr_1d, x):
+    res = 0.00000
+    if (len(arr_1d) == 1):
+        res = float(arr_1d[0])
+        return res
+    for i in range(len(arr_1d)):
+        res += x ** i * float(arr_1d[i])
+    return res
+
+def fill_data(arr_2d):
+    x = 0.0
+
+    while (x <= 1.001):
+        num = 0.0
+        den = 0.0
+        res = 1.0
+
+        for i  in range(0, len(arr_2d) - 1, 2):
+            num = calc(arr_2d[i], x)
+            den = calc(arr_2d[i + 1], x)
+
+            if (den == 0.0):
+                print("107transfer: Division by zero\nHELP: ./107transfer -h", file=stderr)
+                exit(84)
+            res *= num / den
+        print("%.3f -> %.5f" % (x, res))
+        x += 0.001
+    return 0
+
+def main():
+    arr = []
+    a = 0
+    for a in range(1, len(argv)):
+        for b in range(len(argv[a])):
+            if (argv[a][b] < '0' or argv[a][b] > '9'):
+                if (argv[a][b] != '*'):
+                    if (argv[a][b] != '-'):
+                        exit(84)
+    try:
+        for i in range(1, len(argv)):
+            temp = argv[i].split('*')
+            for j in range(len(temp)):
+                temp[j] = float(temp[j]);
+            arr.append(temp)
+    except Exception as e:
+        print("107transfer: %s\nHELP: ./107transfer -h" % (e), file=stderr)
+        return 84
+    fill_data(arr)
+    return 0
+
+if __name__ == '__main__':
+    if (len(argv) <= 1 or len(argv) % 2 == 0):
+        exit(84)
+    if (argv[1] == "-h"):
+        usage()
+    main()

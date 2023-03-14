@@ -1,0 +1,28 @@
+{
+  "name": "b-web-200-nce-2-1-epytodo-philippe.cheype",
+  "version": "1.0.0",
+  "description": "A fully working to do list with backend, frontend, database managment and user handling",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "sudo mysql -u root -ppassword < epytodo.sql && sudo node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpitechIT2020/B-WEB-200-NCE-2-1-epytodo-philippe.cheype.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpitechIT2020/B-WEB-200-NCE-2-1-epytodo-philippe.cheype/issues"
+  },
+  "homepage": "https://github.com/EpitechIT2020/B-WEB-200-NCE-2-1-epytodo-philippe.cheype#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5"
+  }
+}

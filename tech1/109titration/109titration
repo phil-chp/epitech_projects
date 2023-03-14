@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## Untitled (Workspace)
+## File description:
+## 109titration.py
+##
+
+from utils import get_argument
+from handle_calc import derivate, second_derivate, second_derivate_estimate
+
+def main():
+    arr = get_argument()
+    print("Derivative:")
+    arr_derivate = derivate(arr)
+    print("\nSecond derivative:")
+    arr_derivate_sec = second_derivate(arr_derivate)
+    print("\nSecond derivative estimated:")
+    second_derivate_estimate(arr_derivate, arr_derivate_sec)
+    return 0
+
+if __name__ == '__main__':
+    main()

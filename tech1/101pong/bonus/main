@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## main
+## File description:
+## main Brick Breaker function
+##
+
+import pygame
+from pygame.locals import *
+from sys import exit
+from random import randint
+from numpy import zeros
+
+from collision_detection import proj_player_col, player_bondaries, proj_boundaries
+from key_events import key_events, exit_game
+
+
+pygame.init()
+pos = [800, 600]
+clock = pygame.time.Clock()
+window = pygame.display.set_mode((pos[0], pos[1]))
+
+
+pygame.display.set_caption("Brick Breaker")
+icon = pygame.image.load('assets/icon/icon.png')
+pygame.display.set_icon(icon)
+
+
+bg = pygame.image.load('assets/background/bg.jpg').convert()
+bg = pygame.transform.scale(bg, (pos[0], pos[1]))
+brick = pygame.image.load('assets/sprites/brick.png').convert()
+paddle = pygame.image.load('assets/sprites/paddle.png')
+ball = pygame.image.load('assets/sprites/ball.png')
+ball = pygame.transform.scale(ball, (16, 16))
+font = pygame.font.SysFont('comicsans', 30, True)
+
+
+player = [pos[0] / 2 - 32, pos[1] - 32]
+player_s = 0
+
+proj = [player[0] + 24, player[1] - 16]
+proj_s = [0, 0]
+
+
+def bricker():
+    x1 = 0
+    ly1 = 70
+    i = 1
+    count = 0
+    rec = 13
+    lx = 0
+    xloc = pos[0]
+    ly = 0
+    y1 = 0
+
+    while (i < 13):
+        lx = 32 * (i - 1) + 16
+        ly = (i - 1) * 24 + 70
+        count = 0
+        y1 = 0
+        if (i == 1):
+            lx = 16
+            ly = 70
+        rec -= 1
+        while (count <= 11 and (lx + 64 < xloc)):
+            Tx[x1][y1] = lx
+            Ty[x1][y1] = ly
+            lx = lx + 64
+            count += 1
+            y1 += 1
+        xloc -= 32
+        x1 += 1
+        i += 1
+    return Tx, Ty
+
+
+def printer(Tx, Ty):
+    for i in range(12):
+        for j in range(12 - i):
+            window.blit(brick, (Tx[i][j], Ty[i][j]))
+            j += 1
+        i += 1
+    return
+
+
+def menu_health(hp):
+    if (hp == 3):
+        hp = pygame.image.load('assets/sprites/health_full.png')
+    elif (hp == 2):
+        hp = pygame.image.load('assets/sprites/health_quarter.png')
+    elif (hp == 1):
+        hp = pygame.image.load('assets/sprites/health_mid.png')
+    elif (hp == 0 or hp == -1):
+        hp = pygame.image.load('assets/sprites/health_low.png')
+    hp = pygame.transform.scale(hp, (48, 24))
+    return hp
+
+
+def menu_obj(health):
+    window.blit(bg, (0, 0))
+    score = 0
+    level = 0
+    hp = menu_health(health)
+
+    score_t = font.render('score : ' + str(score), 1, (255,255,255))
+    level_t = font.render('level : ' + str(level), 1, (255,255,255))
+    window.blit(score_t, (32, 16))
+    window.blit(hp, (pos[0] / 2 - 24, 16))
+    window.blit(level_t, (pos[0] - 128, 16))
+    return
+
+
+def projectile_obj(pos):
+    window.blit(ball, (pos[0], pos[1]))
+    # pygame.draw.rect(window, (255,255,255), (pos[0] - 32, pos[1] - 32, 80, 80), 1)
+    return
+
+
+def player_obj():
+    window.blit(paddle, (player[0], player[1]))
+    return
+
+Tx = zeros((12, 12), int)
+Ty = zeros((12, 12), int)
+Tx, Ty = bricker()
+h = 3
+
+
+def key_presses(player_s, proj_s, status):
+
+    return player_s, proj_s[0], proj_s[1], status
+
+
+temp = 0
+status = True
+while (status):
+    fps = clock.tick(59)
+    for event in pygame.event.get():
+        status = exit_game(event, status, h)
+        player_s, proj_s = key_events(event, player_s, proj_s, fps)
+    if (h < 0):
+        print('Game Over')
+        status = False
+
+    proj_s, proj = proj_player_col(proj, player, proj_s)
+    # proj_s, proj = proj_brick_col(Tx, Ty, proj, proj_s)
+
+    player = player_bondaries(player, player_s, pos)
+    proj_s, proj, i = proj_boundaries(proj, proj_s, pos, player)
+    h += i
+
+    proj[0] += proj_s[0]
+    proj[1] += proj_s[1]
+
+
+    menu_obj(h)
+    player_obj()
+    printer(Tx, Ty)
+    # pygame.draw.rect(window, (255,255,255), (0, Ty[0][0] - 42, pos[0], 24 * 16), 1)
+    # pygame.draw.line(window, (255,255,255), (Tx[0][0], Ty[0][0], 64, 24), 1)
+    # pygame.draw.line(window, (255,255,255), (Tx[0][0], Ty[0][0], 64, 24), 1)
+    projectile_obj(proj)
+    pygame.display.flip()

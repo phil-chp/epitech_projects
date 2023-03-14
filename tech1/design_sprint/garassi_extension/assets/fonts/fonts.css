@@ -1,0 +1,27 @@
+/* https://fonts.google.com/specimen/Montserrat */
+@font-face {
+    font-family: "Montserrat";
+    src: url("Montserrat-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("Montserrat-SemiBold.ttf");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("Montserrat-ExtraBold.ttf");
+    font-weight: 800;
+}
+
+
+/* https://fonts.google.com/specimen/Open+Sans+Condensed */
+@font-face {
+    font-family: "Open Sans Condensed";
+    src: url("OpenSansCondensed-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+}

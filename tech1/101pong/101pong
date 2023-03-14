@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## 101pong
+## File description:
+## First part of the 101pong
+##
+
+from math import acos, sqrt, pi
+from defs import security, definePoints, vect, defineInter, defineTime
+
+def printVel(vectAB):
+    print("The velocity vector of the ball is:")
+    print("(%.2f, %.2f, %.2f)" % (vectAB[0], vectAB[1], vectAB[2]))
+    return
+
+def printTime(n, A, vectAB, nTimeVect):
+    print("At time t + %d, ball coordinates will be:" % (n))
+    if (n < 0):
+        print("(%.2f, %.2f, %.2f)" % (A[0], A[1], A[2]))
+    elif (n == 0):
+        print("(%.2f, %.2f, %.2f)" % (vectAB[0], vectAB[1], vectAB[2]))
+    else:
+        print("(%.2f, %.2f, %.2f)" % (nTimeVect[0], nTimeVect[1], nTimeVect[2]))
+    return
+
+def printAngle(A, B, vectAB, alpha):
+    if (abs(A[2]) >= 0 and abs(B[2]) >= 0 and abs(A[2]) > abs(B[2]) and alpha != pi):
+        print("The incidence angle is:")
+        print("%.2f degrees" % (alpha))
+    else:
+        print("The ball won't reach the paddle.")
+    return
+
+def main():
+    security()
+    A, B, n = definePoints()
+
+    vectAB = vect(A, B)
+
+    nTimeVect = defineTime(A, vectAB, n)
+    inter = defineInter(A, B, vectAB)
+    if (inter == pi):
+        normIa, normPi = pi, pi
+    else:
+        vectIa = vect(A, inter)
+        normIa = sqrt(vectIa[0] ** 2 + vectIa[1] ** 2 + vectIa[2] ** 2)
+
+        projA = (A[0], A[1], 0)
+        vectPi = vect(inter, projA)
+        normPi = sqrt(vectPi[0] ** 2 + vectPi[1] ** 2 + vectPi[2] ** 2)
+
+    if ((normIa == 0) or (normPi > normIa) or (normIa == pi)):
+        alpha = pi;
+    else:
+        alpha = (acos(normPi / normIa) * 180 / pi)
+
+    printVel(vectAB)
+    printTime(n, A, vectAB, nTimeVect)
+    printAngle(A, B, vectAB, alpha)
+    return 0
+
+if __name__ == "__main__":
+    main()
