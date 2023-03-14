@@ -1,0 +1,9 @@
+build/
+documentation/
+cmake-build-debug/
+.idea/
+
+MyGKrellm
+CMakeLists.txt
+
+# *.o

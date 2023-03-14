@@ -1,0 +1,65 @@
+# This YAML file describes your package. Stack will automatically generate a
+# Cabal file when you run `stack build`. See the hpack website for help with
+# this file: <https://github.com/sol/hpack>.
+name: imageCompressor
+version: '0.0.0'
+github: "githubuser/imageCompressor"
+license: MIT
+author: "Author name here"
+maintainer: "Author name here"
+# synopsis: A new Haskeleton package.
+# description: imageCompressor is a new Haskeleton package.
+# category: Other
+
+extra-source-files:
+- CHANGELOG.md
+- LICENSE.md
+- package.yaml
+- README.md
+- stack.yaml
+
+library:
+  dependencies:
+  - base
+  - random >= 1.1
+  source-dirs: library
+
+executables:
+  imageCompressor:
+    source-dirs: executable
+    main: Main.hs
+    dependencies:
+    - base
+    - imageCompressor
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    - -package random
+
+# benchmarks:
+#   imageCompressor-benchmarks:
+#     source-dirs: benchmark
+#     main: Main.hs
+#     dependencies:
+#     - base
+#     - imageCompressor
+#     - criterion
+#     ghc-options:
+#     - -rtsopts
+#     - -threaded
+#     - -with-rtsopts=-N
+
+# tests:
+#   imageCompressor-test-suite:
+#     source-dirs: test-suite
+#     main: Main.hs
+#     dependencies:
+#     - base
+#     - imageCompressor
+#     - tasty
+#     - tasty-hspec
+#     ghc-options:
+#     - -rtsopts
+#     - -threaded
+#     - -with-rtsopts=-N

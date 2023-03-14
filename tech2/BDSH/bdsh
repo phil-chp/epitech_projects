@@ -1,0 +1,166 @@
+#!/bin/sh
+##
+## EPITECH PROJECT, 2022
+## BDSH
+## File description:
+## create
+##
+
+. "./src/command/create.sh"
+. "./src/command/delete.sh"
+. "./src/command/insert.sh"
+. "./src/command/select.sh"
+. "./src/command/update.sh"
+
+export BDSH_ERRNO=0
+
+export BDSH_SHIFT=0
+export BDSH_FILE=""            # File name
+export BDSH_DISPLAY="table"    # table | json -> for the display format
+export BDSH_COMMAND=           # create | delete | insert | select | delete
+export BDSH_OBJECT=""          # database | table
+export BDSH_ARGUMENTS=""      # arguments for the command ex: id,username
+export BDSH_WHERE=""           # argument for where (select/delete) | et create
+export BDSH_ORDER=""           # argument for orderby (select)
+export BDSH_JOIN=""            # argument for join (select)
+export BDSH_FUNCTION=
+
+my_error() {
+    if [ "$#" = 1 ]; then
+        printf "%s\n" "$1" 1>&2
+    else
+        printf "%s %s\n" "$1" "$2" 1>&2
+    fi
+    return 1
+}
+
+my_usage() {
+    printf "Usage: ./bdsh [OPTION]... [COMMAND] [REQUEST]\nOPTION:\n"
+    printf "\t-h\t\tdisplay usage\n\t-f FILE\t\tjson database file\n"
+    printf "\t-j\t\tjsonformated output for select command\n"
+}
+
+get_file() {
+    if [ -z "$BDSH_File" ]; then
+        if [ -f "./.bdshrc" ]; then
+            export BDSH_FILE="$(cat "./.bdshrc")"
+        else
+            my_error "Couldn't find file name anywhere."
+            export BDSH_ERRNO=1
+        fi
+    else
+        export BDSH_FILE="$BDSH_File"
+    fi
+}
+
+if [ $# = 0 ]; then
+    my_usage "$@"
+    exit 0
+fi
+
+while [ $# -gt 0 ] && [ $BDSH_ERRNO = 0 ]; do
+    case $1 in
+        -f)
+            if [ -z "$2" ]; then
+                my_error "Missing argument after \"$1\"."
+                export BDSH_ERRNO=1
+            else
+                export BDSH_FILE="$2"
+                shift
+            fi
+            shift
+            ;;
+
+        --file=*)
+            export BDSH_FILE="${1#*=}"
+            shift
+            ;;
+
+        -j)
+            export BDSH_DISPLAY="json"
+            shift
+            ;;
+
+        -h|--help)
+            my_usage "$@"
+            shift
+            ;;
+
+        --*)
+            my_error "Unknown option $1" 1>&2
+            export BDSH_ERRNO=10
+            ;;
+
+        create)
+            get_create "$@"
+            I=1
+            while [ "$I" -lt $BDSH_SHIFT ]; do
+                I=$((I + 1))
+                shift
+            done
+            shift
+            export BDSH_SHIFT=0
+            ;;
+
+        insert)
+            get_insert "$@"
+            I=1
+            while [ "$I" -lt $BDSH_SHIFT ]; do
+                I=$((I + 1))
+                shift
+            done
+            shift
+            export BDSH_SHIFT=0
+            ;;
+
+        select)
+            get_select "$@"
+            I=1
+            while [ "$I" -lt $BDSH_SHIFT ]; do
+                I=$((I + 1))
+                shift
+            done
+            shift
+            export BDSH_SHIFT=0
+            ;;
+
+        update)
+            get_update "$@"
+            shift; shift; shift
+            ;;
+
+        delete)
+            get_delete "$@"
+            shift; shift; shift; shift
+            ;;
+
+        *)
+            my_error "Unknown option $1" 1>&2
+            export BDSH_ERRNO=10
+    esac
+done
+
+if [ -z "$BDSH_FILE" ]; then
+    get_file
+fi
+
+# echo "BDSH_SHIFT = $BDSH_SHIFT"
+# echo "BDSH_FILE = $BDSH_FILE"
+# echo "BDSH_DISPLAY = $BDSH_DISPLAY"
+# echo "BDSH_COMMAND = $BDSH_COMMAND"
+# echo "BDSH_OBJECT = $BDSH_OBJECT"
+# echo "BDSH_ARGUMENTS = $BDSH_ARGUMENTS"
+# echo "BDSH_WHERE = $BDSH_WHERE"
+# echo "BDSH_ORDER = $BDSH_ORDER"
+# echo "BDSH_JOIN = $BDSH_JOIN"
+# echo "BDSH_ERRNO = $BDSH_ERRNO"
+
+if [ $BDSH_ERRNO -gt 0 ]; then
+    exit 1
+fi
+
+$BDSH_COMMAND
+
+if [ $BDSH_ERRNO -gt 0 ]; then
+    exit 1
+fi

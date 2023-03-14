@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+#
+## Epitech, project 2022
+## 201 YAMS
+## Co-authored by:
+##   - Philippe CHEYPE <philippe.cheype@epitech.eu>
+##   - Vitali DROUJKO  <vitali.droujko@epitech.eu>
+## File Description:
+## yams
+#
+
+from handling import usage, handle_args, check_argv
+from sys import argv, exit, stderr
+
+class Resolver:
+    def __init__(self, args):
+        self.d = []
+        for i in range(1, 6):
+            self.d.append(check_argv(int(args[i])))
+        self.first_throw = sum(self.d) == 0
+        self.d.sort()
+        self.c = args[6]
+
+
+    def checkAlreadyDone(self, count, full_count=0):
+        """ Return true if dices already match the wanted condition """
+        if (full_count != 0):
+            return not self.first_throw and self.d.count(count) == 3 and self.d.count(full_count) == 2
+        return not self.first_throw and self.d.count(count) >= count
+
+
+    def factorial(self, n):
+        if n == 0 or n == 1:
+            return 1
+        else:
+            return n * self.factorial(n - 1)
+
+
+    def binom(self, X, t):
+        result = 0
+        p = 1 / 6
+        for k in range(X - t, 6 - t):
+            result += (self.factorial(5 - t) / (self.factorial(k) * self.factorial((5 - t) - k))) * p ** k * (1 - p) ** ((5 - t) - k)
+        return result * 100
+
+
+    def four(self):
+        if self.checkAlreadyDone(4):
+            return 100.00
+        elif self.first_throw:
+            return 0.33
+        else:
+            return self.binom(4, self.d.count(int(self.c[1])))
+
+
+    def three(self):
+        if self.checkAlreadyDone(3):
+            return 100.00
+        elif self.first_throw:
+            return 3.54
+        else:
+            return self.binom(3, self.d.count(int(self.c[1])))
+
+
+    def full(self):
+        if self.checkAlreadyDone(int(self.c[1]), int(self.c[2])):
+            return 100.00
+        elif self.first_throw:
+            return 0.13
+        else:
+            t1 = self.d.count(int(self.c[1]))
+            t2 = self.d.count(int(self.c[2]))
+            if t2 == 3 and t1 == 2:
+                return 16.67
+            return self.binom(5, (t1 + t2))
+
+
+    def straight(self):
+        is_already_done = True
+        predicate = 2 if int(self.c[1]) == 6 else 1
+        for i in range(5):
+            if (i + predicate != self.d[i]):
+                is_already_done = False
+
+        dices = sorted(set(self.d))
+        if is_already_done:
+            return 100.00
+        elif self.first_throw or len(dices) == 1 and (dices[0] == 1 and predicate == 2 or dices[0] == 6 and predicate == 1):
+            return 1.54
+        else:
+            if (int(self.c[1]) == 5):
+                return (self.factorial(int(self.c[1]) - len(dices)) / 6 ** (int(self.c[1]) - len(dices))) * 100
+            else:
+                return (self.factorial(int(self.c[1]) - 1 - len(dices)) / 6 ** (int(self.c[1]) - 1 - len(dices))) * 100
+
+    def yams(self):
+        if self.checkAlreadyDone(5):
+            return 100.00
+        elif self.first_throw:
+            return 0.01
+        else:
+            return self.binom(5, self.d.count(int(self.c[1])))
+
+
+    def pair(self):
+        if self.checkAlreadyDone(2):
+            return 100.00
+        elif self.first_throw:
+            return 19.61
+        else:
+            return self.binom(2, self.d.count(int(self.c[1])))
+
+
+class Yams(Resolver):
+    command = ["four", "three", "full", "straight", "yams", "pair"]
+
+    def __init__(self, args):
+        super().__init__(args)
+
+
+    def run(self):
+        self.resolve()
+        return
+
+
+    def resolve(self):
+        """ check if combination[0] is in key[] """
+        probability = .0;
+        message = ""
+        if self.c[0] in self.command:
+            if self.c[0] == "four":
+                probability = self.four()
+                message = "four-of-a-kind"
+            elif self.c[0] == "three":
+                probability = self.three()
+                message = "three-of-a-kind"
+            elif self.c[0] == "full":
+                probability = self.full()
+                message = "full"
+            elif self.c[0] == "straight":
+                probability = self.straight()
+                message = "straight"
+            elif self.c[0] == "yams":
+                probability = self.yams()
+                message = "yams"
+            elif self.c[0] == "pair":
+                probability = self.pair()
+                message = "pair"
+            else:
+                print("Error: unexpected error!\n", file=stderr)
+                exit(84)
+        probability = format(probability, '.2f')
+        if self.c[0] == "full":
+            print(f"Chances to get a {self.c[1]} {message} of {self.c[2]}: {probability}%")
+        else:
+            print(f"Chances to get a {self.c[1]} {message}: {probability}%")
+        return
+
+# binomial -> P[X = k] = C^k(n) . p^k . (1 - p)^(n-k)
+
+def main():
+    if handle_args(argv):
+        usage()
+    game = Yams(argv)
+    game.run()
+
+if __name__ == '__main__':
+    main()

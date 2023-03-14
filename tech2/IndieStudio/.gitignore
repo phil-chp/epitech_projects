@@ -1,0 +1,6 @@
+build/
+indiestudio
+.DS_Store
+.vscode/
+cmake-build-debug/
+.idea/

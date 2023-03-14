@@ -1,0 +1,22 @@
+.idea/
+# .vscode/
+
+build/
+testing/
+
+.devcontainer/
+testing/
+
+cmake-build-debug/
+documentation/
+
+a.out
+core.out
+*.so
+*.o
+*.out
+*.dylib
+.DS_Store
+
+peda-session-*.txt
+vgcore*

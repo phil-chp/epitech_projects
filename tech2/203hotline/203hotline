@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+
+##
+## EPITECH PROJECT, 2022
+## 203hotline
+## File description:
+## 203hotline
+##
+
+from sys import argv, stderr, exit
+from time import time
+
+from utils import print_usage, error, get_coeff
+from param_handling import check_params, get_params
+from distribution import distribution_binomial, distribution_poisson
+
+def distribution(d):
+    """ Given n and k calculates the combination """
+    print("Binomial distribution:")
+    t_start = time()
+    overload = distribution_binomial(d)
+    t_stop = time()
+    print (f"\nOverload: {overload:.1f}%")
+    print (f"Computation time: {1000 * (t_stop - t_start):.2f} ms")
+    
+    print("\nPoisson distribution:")
+    t_start = time()
+    overload = distribution_poisson(d)
+    t_stop = time()
+    print (f"\nOverload: {overload:.1f}%")
+    print (f"Computation time: {1000 * (t_stop - t_start):.2f} ms")
+
+
+def combination(n, k):
+    """ Given d prints full call table from 0 to 50 """
+    """ get overload proba, display compute time """
+    print(f"{k}-combinations of a set of size {n}:")
+    print(f"{get_coeff(n, k)}")
+
+
+def main():
+    """ Main entry handles params and decides """
+    """ whether it's combination or distribution """
+    if len(argv) == 2 and argv[1] == '-h':
+        print_usage()
+    if len(argv) > 3 or len(argv) < 2:
+        error("takes 1 or 2 arguments")
+    params = get_params()
+    check_params(params)
+    if len(argv) == 3:
+        combination(params[0], params[1])
+    else:
+        distribution(params[0])
+    return 0
+
+
+if __name__ == '__main__':
+    main()

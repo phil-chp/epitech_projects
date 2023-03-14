@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 208poll
+## File description:
+## main
+##
+
+from sys import argv
+from src.parsing import get_params, check_args
+from src.Poll import Poll
+
+def main():
+    args = get_params(argv)
+    check_args(args)
+    poll = Poll(args)
+    poll.set_variance()
+    poll.set_confidence()
+    poll.print()
+    return 0
+
+if __name__ == '__main__':
+    main()

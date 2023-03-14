@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+from sys import argv, exit
+import random
+
+if len(argv) > 1:
+    count = int(argv[1])
+else:
+    exit(1)
+
+nums = random.sample(range(count), count)
+for i in range(len(nums) - 1):
+    print(f"{nums[i]} ", end="")
+print(nums[-1]);
+

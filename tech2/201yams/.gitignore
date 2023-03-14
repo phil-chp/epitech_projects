@@ -1,0 +1,5 @@
+dev.env
+*.pdf
+documentation/
+.idea
+__pycache__/

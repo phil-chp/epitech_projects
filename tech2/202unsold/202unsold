@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2021
+## 202unsold
+## File description:
+## 202unsold
+##
+
+from math import *
+from sys import argv, stderr, exit
+
+def print_usage():
+    print("USAGE")
+    print("\t./202unsold a b")
+    print("DESCRIPTION")
+    print("\ta\tconstant computed from past results")
+    print("\tb\tconstant computed from past results")
+    return 0
+
+
+def get_params():
+    try:
+        nb1 = int(argv[1])
+        nb2 = int(argv[2])
+        if nb1 < 50 or nb2 < 50:
+            print(f"{argv[0]}: a or b cannot be lower than 50", file=stderr)
+            exit(84)
+        return [nb1, nb2]
+    except Exception as err:
+        print(f"{argv[0]}: {err}", file=stderr)
+        exit(84)
+
+def model(a, b):
+    tab = []
+    denom = ((5 * a - 150) * (5 * b - 150))
+    if (denom == 0):
+        print ("div by 0", file=stderr)
+        exit(84)
+    for y in range(10, 60, 10):
+        line = []
+        for x in range(10, 60, 10):
+            line.append(((a - x) * (b - y)) / denom)
+        tab.append(line)
+    return (tab)
+
+
+def print_line(qt):
+    print ('-' * qt)
+
+def print_model(tab):
+    Xtot = []
+    Ytot = []
+    Ztot = []
+
+    print_line(80)
+    for x in range(10, 60, 10):
+        print(f"\tX={x}", end = "")
+    print(f"\tY law")
+
+    for y in range(0, 5):
+        tot = 0
+        print (f"Y={(y + 1) * 10}", end = "")
+        for x in range(0, 5):
+            tot += tab[y][x]
+            print(f"\t{format(tab[y][x],'.3f')}", end = "")
+        Ytot.append(tot)
+        print(f"\t{format(tot,'.3f')}", end = "")
+        print("")
+
+    print (f"X law", end = "")
+    for x in range(0, 5):
+        tot = 0
+        for y in range(0, 5):
+            tot += tab[y][x]
+        Xtot.append(tot)
+        print(f"\t{format(tot,'.3f')}", end = "")
+
+    XYtot = sum(Xtot) + sum(Ytot)
+    print(f"\t{format(XYtot / 2,'.3f')}")
+
+    print_line(80)
+    print("z", end = "")
+    for x in range(20, 110, 10):
+        print(f"\t{x}", end = "")
+
+    print("\np(Z=z)", end = "")
+    for k in range(0, 5):
+        tot = 0
+        y = k
+        for x in range(0, k + 1):
+            tot += tab[y][x]
+            y = y - 1
+        Ztot.append(tot)
+        print(f"\t{format(tot,'.3f')}", end = "")
+
+    for k in range(5, 9):
+        tot = 0
+        y = 4
+        for x in range(k - 4, 5):
+            tot += tab[y][x]
+            y = y - 1
+        Ztot.append(tot)
+        print(f"\t{format(tot,'.3f')}", end = "")
+    print("")
+
+    print_line(80)
+    Ex, Ey, Ez = 0, 0, 0
+    Px, Py, Pz = 0, 0, 0
+    for n in range(0, 9):
+        if n < 5:
+            Ex += Xtot[n] * (n + 1) * 10
+            Ey += Ytot[n] * (n + 1) * 10
+        Ez += Ztot[n] * (n + 2) * 10
+
+    for n in range(0, 9):
+        if n < 5:
+            Px += ((n + 1) * 10 - Ex) ** 2 * Xtot[n]
+            Py += ((n + 1) * 10 - Ey) ** 2 * Ytot[n]
+        Pz += ((n + 2) * 10 - Ez) ** 2 * Ztot[n]
+
+    print(f"expected value of X:\t{format(Ex, '.1f')}")
+    print(f"variance of X:\t\t{    format(Px, '.1f')}")
+    print(f"expected value of Y:\t{format(Ey, '.1f')}")
+    print(f"variance of Y:\t\t{    format(Py, '.1f')}")
+    print(f"expected value of Z:\t{format(Ez, '.1f')}")
+    print(f"variance of Z:\t\t{    format(Pz, '.1f')}")
+    print_line(80)
+    return 0
+
+if __name__ == '__main__':
+    if len(argv) == 2 and argv[1] == '-h':
+        print_usage()
+        exit(0)
+    if len(argv) != 3:
+        print(f"{argv[0]}: takes 2 arguments", file=stderr)
+        exit(84)
+    params = get_params()
+    tab = model(params[0], params[1])
+    print_model(tab)
+    exit(0)
