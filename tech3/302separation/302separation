@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 302separation
+## File description:
+## Main
+##
+
+from sys import argv, exit, setrecursionlimit
+from src.utils import argument_parsing, get_file_content, error
+from src.Separator import Separator
+import sys
+
+def run(data):
+    args = argv[2:]
+    separator = Separator(data, args)
+    separator.run()
+
+def main():
+    # sys.setrecursionlimit(10**6)
+    file = argument_parsing(argv)
+    data = get_file_content(file[0])
+    run(data)
+    return 0
+
+if __name__ == '__main__':
+    main()

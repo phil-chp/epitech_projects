@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 305construction
+## File description:
+## 305construction
+##
+
+from sys import argv, exit
+from src.utils import usage, error, argument_parsing, get_file_content
+from src.Construction import Construction
+
+def main():
+    file = argument_parsing(argv)
+    data = get_file_content(file)
+
+    construction = Construction(data)
+    construction.run()
+    return 0
+
+if __name__ == '__main__':
+    main()

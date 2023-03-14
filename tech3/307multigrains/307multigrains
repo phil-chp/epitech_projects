@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 307multigrains
+## File description:
+## main
+##
+
+from src.Multigrains import Multigrains
+from src.utils import parse_args
+
+def main():
+    args = parse_args()
+    mg = Multigrains(args)
+    mg.run()
+    return 0
+
+if __name__ == '__main__':
+    main()

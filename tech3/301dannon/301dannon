@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 301dannon
+## File description:
+## Main
+##
+
+from sys import argv, exit, setrecursionlimit
+from src.utils import argument_parsing, get_file_content, error
+from src.Sort import Sort
+import sys
+ 
+# the setrecursionlimit function is
+# used to modify the default recursion
+# limit set by python. Using this,
+# we can increase the recursion limit
+# to satisfy our needs
+ 
+def run(data):
+    sort = Sort()
+
+    true_data = []
+    data = data.split(' ')
+    # print (data)
+
+    try:
+        for i in range (len(data)):
+            true_data.append(float(data[i]))
+    except:
+        error("invalid argument list")
+    
+    if (len(true_data) == 1):
+        print(f"{len(true_data)} element")
+    else:
+        print(f"{len(true_data)} elements")
+    print(f"Selection sort: {sort.select(true_data.copy())[1]} comparisons")
+    print(f"Insertion sort: {sort.insert(true_data.copy())[1]} comparisons")
+    print(f"Bubble sort: {sort.bubble(true_data.copy())[1]} comparisons")
+    print(f"Quicksort: {sort.quick(true_data.copy())[1]} comparisons")
+    print(f"Merge sort: {sort.merge(true_data.copy())[1]} comparisons")
+
+
+def main():
+    sys.setrecursionlimit(10**6)
+    file = argument_parsing(argv)
+    data = get_file_content(file)
+    run(data)
+    return 0
+
+if __name__ == '__main__':
+    main()

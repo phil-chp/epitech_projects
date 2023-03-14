@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 304pacman (Workspace)
+## File description:
+## main
+##
+
+from sys import argv
+from src.utils import usage, get_file_content, argument_parsing
+from src.Pacman import Pacman
+
+def main():
+    args = argument_parsing(argv)
+
+    pacman = Pacman(get_file_content(args[0]), args[1], args[2])
+    pacman.run()
+    pacman.display()
+    return 0
+
+if __name__ == '__main__':
+    main()

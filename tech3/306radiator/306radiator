@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 306radiator
+## File description:
+## 306radiator
+##
+
+from src.utils import parse_args
+from src.Radiator import Radiator
+
+def main():
+    args = parse_args()
+    radiator = Radiator(args)
+    radiator.run()
+    return 0
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,213 @@
+IP Address (x.x.x.x):
+> 10.10.120.112
+
+
+ ------ STARTING FAST SCAN ------------------------------------------------------
+
+Starting Nmap 7.93 ( https://nmap.org ) at 2022-11-27 15:22 CET
+Nmap scan report for 10.10.120.112
+Host is up (0.047s latency).
+Not shown: 993 closed tcp ports (conn-refused)
+PORT     STATE    SERVICE     VERSION
+22/tcp   open     ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+111/tcp  open     rpcbind     2-4 (RPC #100000)
+139/tcp  open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+873/tcp  open     rsync       (protocol version 31)
+2049/tcp open     nfs_acl     3 (RPC #100227)
+9090/tcp filtered zeus-admin
+Service Info: Host: MANY-FACED-GOD; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.07 seconds
+
+
+ ------ STARTING INTERMEDIATE SCAN ----------------------------------------------
+
+Starting Nmap 7.93 ( https://nmap.org ) at 2022-11-27 15:22 CET
+Nmap scan report for 10.10.120.112
+Host is up (0.045s latency).
+Not shown: 993 closed tcp ports (conn-refused)
+PORT     STATE    SERVICE     VERSION
+22/tcp   open     ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 5e278f48ae2ff889bb8913e39afd6340 (RSA)
+|   256 f4fe0be25c88b563138550ddd586abbd (ECDSA)
+|_  256 82ea4885f02a237e0ea9d9140a602fad (ED25519)
+111/tcp  open     rpcbind     2-4 (RPC #100000)
+| rpcinfo:
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      42955/tcp6  mountd
+|   100005  1,2,3      53603/udp   mountd
+|   100005  1,2,3      53864/udp6  mountd
+|   100005  1,2,3      56313/tcp   mountd
+|   100021  1,3,4      33482/udp6  nlockmgr
+|   100021  1,3,4      36662/udp   nlockmgr
+|   100021  1,3,4      44943/tcp6  nlockmgr
+|   100021  1,3,4      46693/tcp   nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp  open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open     netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp  open     rsync       (protocol version 31)
+2049/tcp open     nfs_acl     3 (RPC #100227)
+9090/tcp filtered zeus-admin
+Service Info: Host: MANY-FACED-GOD; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb2-security-mode:
+|   311:
+|_    Message signing enabled but not required
+| smb2-time:
+|   date: 2022-11-27T14:22:59
+|_  start_date: N/A
+| smb-os-discovery:
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: many-faced-god
+|   NetBIOS computer name: MANY-FACED-GOD\x00
+|   Domain name: \x00
+|   FQDN: many-faced-god
+|_  System time: 2022-11-27T15:22:59+01:00
+|_clock-skew: mean: -19m59s, deviation: 34m38s, median: 0s
+|_nbstat: NetBIOS name: MANY-FACED-GOD, NetBIOS user: <unknown>, NetBIOS MAC: 000000000000 (Xerox)
+| smb-security-mode:
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 24.15 seconds
+
+
+ ------ STARTING LONG SCAN ------------------------------------------------------
+
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+Starting Nmap 7.93 ( https://nmap.org ) at 2022-11-27 15:23 CET
+NSE: Loaded 155 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 15:23
+Completed Parallel DNS resolution of 1 host. at 15:23, 0.02s elapsed
+Initiating Connect Scan at 15:23
+Scanning 10.10.120.112 [65535 ports]
+Discovered open port 111/tcp on 10.10.120.112
+Discovered open port 445/tcp on 10.10.120.112
+Discovered open port 22/tcp on 10.10.120.112
+Discovered open port 139/tcp on 10.10.120.112
+Discovered open port 6379/tcp on 10.10.120.112
+Discovered open port 2049/tcp on 10.10.120.112
+Discovered open port 56313/tcp on 10.10.120.112
+Discovered open port 53879/tcp on 10.10.120.112
+Discovered open port 51315/tcp on 10.10.120.112
+Discovered open port 41215/tcp on 10.10.120.112
+Discovered open port 873/tcp on 10.10.120.112
+Discovered open port 46693/tcp on 10.10.120.112
+Initiating Service scan at 15:35
+Scanning 12 services on 10.10.120.112
+NSE: Script scanning 10.10.120.112.
+Initiating NSE at 15:35
+Completed NSE at 15:35, 1.78s elapsed
+Initiating NSE at 15:35
+Completed NSE at 15:35, 0.21s elapsed
+Initiating NSE at 15:35
+Completed NSE at 15:35, 0.00s elapsed
+Nmap scan report for 10.10.120.112
+Host is up (0.046s latency).
+Not shown: 65452 closed tcp ports (conn-refused), 71 filtered tcp ports (no-response)
+PORT      STATE SERVICE     VERSION
+22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 5e278f48ae2ff889bb8913e39afd6340 (RSA)
+|   256 f4fe0be25c88b563138550ddd586abbd (ECDSA)
+|_  256 82ea4885f02a237e0ea9d9140a602fad (ED25519)
+111/tcp   open  rpcbind     2-4 (RPC #100000)
+| rpcinfo:
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      42955/tcp6  mountd
+|   100005  1,2,3      53603/udp   mountd
+|   100005  1,2,3      53864/udp6  mountd
+|   100005  1,2,3      56313/tcp   mountd
+|   100021  1,3,4      33482/udp6  nlockmgr
+|   100021  1,3,4      36662/udp   nlockmgr
+|   100021  1,3,4      44943/tcp6  nlockmgr
+|   100021  1,3,4      46693/tcp   nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open  netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp   open  rsync       (protocol version 31)
+2049/tcp  open  nfs_acl     3 (RPC #100227)
+6379/tcp  open  redis       Redis key-value store
+41215/tcp open  java-rmi    Java RMI
+46693/tcp open  nlockmgr    1-4 (RPC #100021)
+51315/tcp open  mountd      1-3 (RPC #100005)
+53879/tcp open  mountd      1-3 (RPC #100005)
+56313/tcp open  mountd      1-3 (RPC #100005)
+Service Info: Host: MANY-FACED-GOD; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb-os-discovery:
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: many-faced-god
+|   NetBIOS computer name: MANY-FACED-GOD\x00
+|   Domain name: \x00
+|   FQDN: many-faced-god
+|_  System time: 2022-11-27T15:35:58+01:00
+| smb2-time:
+|   date: 2022-11-27T14:35:58
+|_  start_date: N/A
+| smb2-security-mode:
+|   311:
+|_    Message signing enabled but not required
+| nbstat: NetBIOS name: MANY-FACED-GOD, NetBIOS user: <unknown>, NetBIOS MAC: 000000000000 (Xerox)
+| Names:
+|   MANY-FACED-GOD<00>   Flags: <unique><active>
+|   MANY-FACED-GOD<03>   Flags: <unique><active>
+|   MANY-FACED-GOD<20>   Flags: <unique><active>
+|   \x01\x02__MSBROWSE__\x02<01>  Flags: <group><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WORKGROUP<1d>        Flags: <unique><active>
+|_  WORKGROUP<1e>        Flags: <group><active>
+|_clock-skew: mean: -19m59s, deviation: 34m38s, median: 0s
+| smb-security-mode:
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+
+NSE: Script Post-scanning.
+Initiating NSE at 15:35
+Completed NSE at 15:35, 0.00s elapsed
+Initiating NSE at 15:35
+Completed NSE at 15:35, 0.00s elapsed
+Initiating NSE at 15:35
+Completed NSE at 15:35, 0.00s elapsed
+Read data files from: /opt/homebrew/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 779.38 seconds
